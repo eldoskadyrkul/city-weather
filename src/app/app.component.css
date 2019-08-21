@@ -1,0 +1,16 @@
+.weather_container .tmp_btn {
+  margin: 20px 0;
+}
+.tmp_select button.btn {
+  display: block;
+  float: left;
+  margin-right: 20px;
+}
+.tmp_select .form-control {
+  width: 40%;
+  display: inline-block;
+  margin: 0 20px;
+}
+.graphics p.btn {
+  width: 120px;
+}

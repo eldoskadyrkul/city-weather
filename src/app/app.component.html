@@ -1,0 +1,37 @@
+<script src="../main.ts"></script>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="weather_title">
+        <h2>Архив метеослужбы</h2>
+      </div>
+    </div>
+    <div class="col-lg-12">
+      <div class="weather_container">
+        <div class="tmp_btn">
+          <div class="tmp_select">
+            <button class="btn btn-success">Температура</button>
+            <input #startDate type="date" class="form-control"/>
+            <input #endDate  type="date" class="form-control" (keyup.enter)="StartDate(startDate.value, endDate.value)"/>
+          </div>
+        </div>
+        <div  class="graphics" >
+          <p class="btn btn-success">Осадки</p>
+          <div style="display: block">
+              <canvas height="655" class="chart" baseChart
+                      [datasets]="lineChartData"
+                      [labels]="lineChartLabels"
+                      [options]="lineChartOptions"
+                      [chartType]="lineChartType"
+                      [legend]="false"
+                      (chartHover)="chartHovered($event)"
+                      (chartClick)="chartClicked($event)"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <router-outlet></router-outlet>
+  </div>
+</div>
