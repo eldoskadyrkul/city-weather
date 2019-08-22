@@ -16,7 +16,6 @@ import {FilteredYearsPipe} from './pipe/filtered-years.pipe';
 })
 export class AppComponent implements OnInit {
 
-
   dateUser = [];
   description;
   temperate;
