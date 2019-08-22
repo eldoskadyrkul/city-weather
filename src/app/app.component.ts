@@ -7,6 +7,7 @@ import {WeatherService} from './service/weather.service';
 // @ts-ignore
 import precipitation from "../assets/precipitation.json";
 import temperature from "../assets/temperature.json";
+import {FilteredYearsPipe} from './pipe/filtered-years.pipe';
 
 @Component({
   selector: 'app-root',
@@ -22,23 +23,23 @@ export class AppComponent implements OnInit {
   endDate: string = "";
   percipateList: any[] = precipitation;
   temperatureList: any[] = temperature;
+  filterdArrayByDate = [];
 
   public StartDate(dateUser, endDate) {
     this.dateUser = dateUser;
     this.endDate = endDate;
-    let minDate = new Date("1881-01-01");
-    let maxDate = new Date("2006-12-31");
-    this.lineChartLabels = [dateUser, endDate];
 
-    let value_1 = this.percipateList.find(res => res.t == dateUser);
-    let value_2 = this.percipateList.find(res => res.t == endDate);
-    let value_3 = this.temperatureList.find(res => res.t == dateUser);
-    let value_4 = this.temperatureList.find(res => res.t == endDate);
-    this.lineChartData = [{data: [this.description = value_1.v, this.description = value_2.v]},
-      {data: [this.temperate = value_3.v, this.temperate = value_4.v]}];
+    let a = this.percipateList.filter(m => new Date(m.t) >= new Date(dateUser) && new Date(m.t) <= new Date(endDate));
+    let b = this.temperatureList.filter(m => new Date(m.t) >= new Date(dateUser) && new Date(m.t) <= new Date(endDate));
+
+    this.filterdArrayByDate = a.map(res => res.t);
+    this.lineChartLabels = this.filterdArrayByDate;
+
+    this.description = a.map(res => res.v);
+    this.temperate = b.map(res => res.v);
+    this.lineChartData = [{data: this.description}, {data: this.temperate}];
 
   }
-
 
   public lineChartData: ChartDataSets[] = [{data: []}];
   public lineChartLabels: Label[];
@@ -110,7 +111,7 @@ export class AppComponent implements OnInit {
   }
 
 
-  constructor(private _weather: WeatherService, private http: HttpClient) {}
+  constructor(private _weather: WeatherService, private dateFormat: FilteredYearsPipe, private http: HttpClient) {}
 
   ngOnInit() {
   }

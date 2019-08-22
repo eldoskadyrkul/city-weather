@@ -11,8 +11,8 @@ export class FilteredYearsPipe implements PipeTransform {
     if (projetList && projetList.length)
     {
       var datePipe = new DatePipe("en-US");
-      value1= datePipe.transform(value1, 'dd/MM/yyyy');
-      value2= datePipe.transform(value2, 'dd/MM/yyyy');
+      value1= datePipe.transform(value1, 'yyyy-MM-dd');
+      value2= datePipe.transform(value2, 'yyyy-MM-dd');
 
       projetList.forEach(proj => {
         if (value1 >= value2)
