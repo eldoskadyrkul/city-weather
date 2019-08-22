@@ -10,6 +10,8 @@
   width: 40%;
   display: inline-block;
   margin: 0 20px;
+  background: #28a745;
+  color: #fff;
 }
 .graphics p.btn {
   width: 120px;
