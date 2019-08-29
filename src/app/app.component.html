@@ -1,34 +1,145 @@
-<div class="container">
-  <div class="row">
-    <div class="col-lg-12">
-      <div class="weather_title">
-        <h2>Архив метеослужбы</h2>
-      </div>
-    </div>
-    <div class="col-lg-12">
-      <div class="weather_container">
-        <div class="tmp_btn">
-          <div class="tmp_select">
-            <button class="btn btn-success">Температура</button>
+<nav class="navbar navbar-vertical navbar-expand-md navbar-light bg-white" id="sidenav-main">
+  <div class="container-fluid">
+    <button class="navbar-toggler" type="button" aria-controls="sidenav-collapse-main">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <a href="#/dashboard" class="navbar-brand pt-0 active">
+      Метеослужба
+    </a>
+
+  </div>
+</nav>
+<div class="main-content">
+  <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
+    <div class="container-fluid">
+      <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block active" href="#">Архив метеослужбы</a>
+      <div class="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto">
+        <div class="form-group mb-0">
+          <div class="input-group input-group-alternative">
             <input #startDate type="date" class="form-control"/>
             <input #endDate  type="date" class="form-control" (keyup.enter)="StartDate(startDate.value, endDate.value)"/>
           </div>
         </div>
-        <div  class="graphics" >
-          <p class="btn btn-success">Осадки</p>
-          <div style="display: block">
-              <canvas height="655" class="chart" baseChart
-                      [datasets]="lineChartData"
-                      [labels]="lineChartLabels"
-                      [options]="lineChartOptions"
-                      [chartType]="lineChartType"
-                      [legend]="false"></canvas>
+      </div>
+    </div>
+  </nav>
+  <div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+    <div class="container-fluid">
+      <div class="header-body">
+        <div class="row">
+          <div class="col-xl-3 col-lg-6">
+            <div class="card card-stats mb-4 mb-xl-0">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col">
+                    <h5 class="card-title text-uppercase text-muted mb-0">Данные</h5>
+                    <span class="h2 font-weight-bold mb-0">{{temperatureList.length + percipateList.length}}</span>
+                  </div>
+                  <div class="col-auto">
+                    <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
+                      <i class="fas fa-chart-bar"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3 col-lg-6">
+            <div class="card card-stats mb-4 mb-xl-0">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col">
+                    <h5 class="card-title text-uppercase text-muted mb-0">Количество осадков</h5>
+                    <span class="h2 font-weight-bold mb-0">{{percipateList.length}}</span>
+                  </div>
+                  <div class="col-auto">
+                    <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
+                      <i class="fas fa-chart-pie"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3 col-lg-6">
+            <div class="card card-stats mb-4 mb-xl-0">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col">
+                    <h5 class="card-title text-uppercase text-muted mb-0">Количество температур</h5>
+                    <span class="h2 font-weight-bold mb-0">{{temperatureList.length}}</span>
+                  </div>
+                  <div class="col-auto">
+                    <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
+                      <i class="fas fa-thermometer-half"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3 col-lg-6">
+            <div class="card card-stats mb-4 mb-xl-0">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col">
+                    <h5 class="card-title text-uppercase text-muted mb-0">Период</h5>
+                    <span class="h2 font-weight-bold mb-0">01.01.1881 - 31.12.2006</span>
+                  </div>
+                  <div class="col-auto">
+                    <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
+                      <i class="fas fa-calendar-alt"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <div>
-    <router-outlet></router-outlet>
+  <div class="container-fluid mt--7">
+    <div class="row">
+      <div class="col-xl-12 mb-5 mb-xl-0">
+        <div class="card bg-gradient-default shadow">
+          <div class="card-header bg-transparent">
+            <div class="row align-items-center">
+              <div class="col">
+                <h6 class="text-uppercase text-light ls-1 mb-1">Просмотр</h6>
+                <h2 class="text-white mb-0">Осадки</h2>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="chart">
+              <canvas class="chart-canvas" id="chart-weather" baseChart
+                      [datasets]="lineChartData"
+                      [labels]="lineChartLabels"
+                      [options]="lineChartOptions"
+                      [chartType]="lineChartType"
+                      [colors]="lineChartColors"
+                      [legend]="false"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <footer class="footer">
+      <div class="row align-items-center justify-content-xl-between">
+        <div class="col-xl-6">
+          <div class="copyright text-center text-xl-left text-muted">&copy; 2019 <a href="http://eldoskadyrkul.kz/">Kadyrkul Templates</a></div>
+        </div>
+        <div class="col-xl-6">
+          <ul class="nav nav-footer justify-content-center justify-content-xl-end">
+            <li class="nav-item"><a class="nav-link" href="https://eldoskadyrkul.kz/" target="_blank">Kadyrkul Templates</a></li>
+            <li class="nav-item"><a class="nav-link" href="https://eldoskadyrkul.kz/about" target="_blank">Обо мне</a></li>
+            <li class="nav-item"><a class="nav-link" href="https://eldoskadyrkul.kz/blogs" target="_blank">Блог</a></li>
+          </ul>
+        </div>
+      </div>
+    </footer>
   </div>
 </div>
